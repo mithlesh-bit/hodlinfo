@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/index.css">
+</head>
+
+<body class="background">
+    <header>
+        <nav>
+            <div id="imgdiv"><img id="img" src="../assets/logo.png" alt="logo"></div>
+
+
+            <div class="con2">
+                <div class="dropdown">
+                    <button class="btncon2" onclick="toggleDropdown('inrDropdown', 'btcDropdown', this)">INR</button>
+                    <div id="inrDropdown" class="dropdown-content">
+                        <a href="#">INR</a>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <button class="btncon2" onclick="toggleDropdown('btcDropdown', 'inrDropdown', this)">BTC</button>
+                    <div id="btcDropdown" class="dropdown-content">
+                        <!-- Dropdown content for BTC -->
+                        <a href="#">BTC</a>
+                        <a href="#">ETH</a>
+                        <a href="#">USDT</a>
+                        <a href="#">XRP</a>
+                        <a href="#">TRX</a>
+                        <a href="#">DASH</a>
+                        <a href="#">ZEC</a>
+                        <a href="#">XEM</a>
+                        <a href="#">LOST</a>
+                        <a href="#">WIN</a>
+                        <a href="#">BTT</a>
+                        <a href="#">USDT</a>
+                    </div>
+                </div>
+                <button class="btncon2" onclick="changeButtonColor(this)">BUY BTC</button>
+            </div>
+
+
+            <div class="con2">
+                <div class="timer-group">
+                    <div class="timer minute">
+                        <div class="hand"><span></span></div>
+                        <div class="hand"><span></span></div>
+                    </div>
+                    <div class="face">
+                        <p id="lazy">00</p>
+                    </div>
+                </div>
+                <div><button id="btn3"><img class="telegram-logo" src="../assets/telegram-logo.svg" alt="">Connect
+                        Telegram</button></div>
+
+                <input type="checkbox" id="darkmode-toggle" onclick="validate()" />
+                <label for="darkmode-toggle">
+
+
+                </label>
+
+            </div>
+
+        </nav>
+    </header>
+
+    <section class="section">
+        <div>
+            <div class="div3">0.08 %</div>
+            <div class="txt1">5 Mins</div>
+        </div>
+
+        <div>
+            <div class="div3">20.31 %</div>
+            <div class="txt1">1 Hour</div>
+        </div>
+
+        <div class="center">
+            <div class="txt3">Best Price To Trade</div>
+            <div class="center2">₹ 24,49,660</div>
+            <div class="txt2">Average BTC/INR net price including commission</div>
+        </div>
+
+        <div>
+            <div class="div3">9.08 %</div>
+            <div class="txt1">1 Day</div>
+        </div>
+
+        <div>
+            <div class="div3">14.4 %</div>
+            <div class="txt1">7 Days</div>
+        </div>
+    </section>
+
+    <!-- table -->
+    <table>
+        <thead>
+            <tr class="tr">
+                <th class="th1">Index</th>
+                <th class="th1">NAME</th>
+                <th class="th1">LAST</th>
+                <th class="th1">BUY</th>
+                <th class="th1">SELL</th>
+                <th class="th1">VOLUME</th>
+                <th class="th1">BASE-UNIT</th>
+            </tr>
+        </thead>
+        <tbody class="tbodytable">
+            <% details.forEach((detail, index)=> { %>
+                <tr class="tr1">
+                    <td>
+                        <%= index + 1 %>
+                    </td>
+                    <td>
+                        <%= detail.name %>
+                    </td>
+                    <td>
+                        <%= detail.last %>
+                    </td>
+                    <td>
+                        <%= detail.buy %>
+                    </td>
+                    <td>
+                        <%= detail.sell %>
+                    </td>
+                    <td>
+                        <%= detail.volume %>
+                    </td>
+                    <td>
+                        <%= detail.base_unit %>
+                    </td>
+                </tr>
+                <% }); %>
+        </tbody>
+    </table>
+    <div class="footer">
+        <div class="d-flex align-items-center text-center">
+            <div class="footer-text">Copyright © 2019</div>
+            <div class="footer-text">HodlInfo.com</div>
+            <div class="footer-text pointer" style="margin-left: auto;"><a href="mailto:support@hodlinfo.com"
+                    class="footer-text-link">Support</a></div>
+        </div>
+    </div>
+    
+</body>
+
+<script>
+
+</script>
+
+
+<script>
+
+let currentDropdown = null;
+    let currentDropdownButton = null;
+    function toggleDropdown(showDropdownId, hideDropdownId, button) {
+        const showDropdown = document.getElementById(showDropdownId);
+        const hideDropdown = document.getElementById(hideDropdownId);
+
+        if (currentDropdown !== showDropdown) {
+            if (currentDropdown) {
+                currentDropdown.style.display = 'none';
+                const prevButton = currentDropdownButton;
+                prevButton.classList.remove('clicked');
+            }
+            showDropdown.style.display = 'block';
+            currentDropdown = showDropdown;
+            currentDropdownButton = button;
+
+            button.classList.add('clicked');
+        } else {
+            showDropdown.style.display = 'none';
+            currentDropdown = null;
+
+            button.classList.remove('clicked');
+        }
+
+        if (hideDropdown) {
+            hideDropdown.style.display = 'none';
+        }
+    }
+
+
+
+     let currentButton = null;
+    function changeButtonColor(button) {
+        if (currentButton) {
+            currentButton.classList.remove('clicked');
+        }
+        if (currentButton !== button) {
+            button.classList.add('clicked');
+            currentButton = button;
+        } else {
+            currentButton = null;
+        }
+    }
+
+ 
+    var one_second = 1000;
+    var startDate = new Date();
+    var face = document.getElementById('lazy');
+
+    function tick() {
+        var now = new Date();
+        var elapsed = now - startDate;
+        var remainingSeconds = 60 - Math.floor(elapsed / one_second);
+
+        if (remainingSeconds < 0) {
+            remainingSeconds = 0; 
+        }
+
+        face.innerText = remainingSeconds;
+
+        if (remainingSeconds > 0) {
+            requestAnimationFrame(tick);
+        }
+    }
+
+    tick();
+
+    function validate() {
+        if (document.querySelector('#darkmode-toggle').checked) {
+            const bg_color = document.querySelector('.background')
+            const center = document.querySelector('.center2')
+            bg_color.classList.add('active')
+            center.style.color = "white"
+        } else {
+            const center = document.querySelector('.center2')
+            const bg_color = document.querySelector('.background')
+            bg_color.classList.remove('active')
+            center.style.color = "#0C0f48"
+        }
+    }
+
+</script>
+
+</html>
